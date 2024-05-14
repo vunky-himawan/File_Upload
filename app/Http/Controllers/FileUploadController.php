@@ -14,21 +14,9 @@ class FileUploadController extends Controller
 
     public function prosesFileUpload(Request $request)
     {
-        // dump($request->berkas);
-        if ($request->hasFile('berkas')) {
-            echo "path() = " . $request->file('berkas')->path();
-            echo "<br>";
-            echo "extension() = " . $request->file('berkas')->extension();
-            echo "<br>";
-            echo "getClientOriginalExtension() = " . $request->file('berkas')->getClientOriginalExtension();
-            echo "<br>";
-            echo "getMimeType() = " . $request->file('berkas')->getMimeType();
-            echo "<br>";
-            echo "getClientOriginalName() = " . $request->file('berkas')->getClientOriginalName();
-            echo "<br>";
-            echo "getSize() = " . $request->file('berkas')->getSize();
-        } else {
-            echo "Tidak ada berkas yang diupload";
-        }
+        $request->validate([
+            'berkas' => 'required|file|image|max:500'
+        ]);
+        echo $request->berkas->getClientOriginalName() . "Lolos Validasi";
     }
 }
